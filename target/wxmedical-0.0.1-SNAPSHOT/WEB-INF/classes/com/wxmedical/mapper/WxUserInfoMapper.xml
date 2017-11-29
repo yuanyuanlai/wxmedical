@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxmedical.mapper.WxUserInfoMapper" >
+  <resultMap id="WeixinUserInfoResultMap" type="com.wxmedical.model.wx.WeixinUserInfo" >
+      <result column="open_id" property="openId" jdbcType="VARCHAR" />
+      <result column="sub_scribe" property="subscribe" jdbcType="INTEGER" />
+      <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	  <result column="sex" property="sex" jdbcType="VARCHAR" />
+	  <result column="country" property="country" jdbcType="VARCHAR" />
+	  <result column="province" property="province" jdbcType="VARCHAR" />
+	  <result column="city" property="city" jdbcType="VARCHAR" />
+	  <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
+	  <result column="created_time" property="createTime" jdbcType="TIMESTAMP" />
+	  <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+
+  <insert id="insertNewWxUser" parameterType="com.wxmedical.model.wx.WeixinUserInfo" >
+	 INSERT INTO wechat_wxuser
+	 (  open_id, sub_scribe ,nick_name,sex, country,province,city,head_img_url,created_time,update_time)
+	 VALUES 
+	 ( #{openId}, #{subscribe}, #{nickname}, #{sex}, #{country}, #{province}, #{city}, #{headImgUrl},#{createTime},#{updateTime});
+  </insert>
+
+	<select id="findWxUserInfoByOpenId" parameterType="String" resultMap="WeixinUserInfoResultMap">
+		SELECT  open_id, sub_scribe ,nick_name,sex, country,province,city,head_img_url,createdTime,update_time
+		FROM wechat_wxuser
+		WHERE open_id = #{openId}
+	</select>
+
+</mapper>
